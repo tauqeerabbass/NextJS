@@ -22,8 +22,7 @@ const handler = NextAuth({
 
           const data = await res.json();
           if (res.ok && data.user){
-            return {...data.user, token: data.token};
-            
+            return {id: data.user.id, username: data.user.username, token: data.token};
           }
 
           return null;
@@ -42,16 +41,17 @@ const handler = NextAuth({
     strategy: "jwt"
   },
   callbacks: {
-    async jwt(token, user){
+    async jwt({token, user}){
         if (user){
+            console.log("User from jwt", user);
             token.id = user.id;
             token.username = user.username;
-            token.password = user.password;
+            token.token = user.token;
         }
 
         return token;
     },
-    async session(session, token){
+    async session({session, token}){
         session.user.id = token.id;
         session.user.username = token.username
         session.user.token = token.token
@@ -59,5 +59,6 @@ const handler = NextAuth({
     }
   }
 });
+
 
 export {handler as GET, handler as POST}
