@@ -43,7 +43,7 @@ const handler = NextAuth({
   callbacks: {
     async jwt({token, user}){
         if (user){
-            console.log("User from jwt", user);
+            // console.log("User from jwt", user);
             token.id = user.id;
             token.username = user.username;
             token.token = user.token;
@@ -59,6 +59,5 @@ const handler = NextAuth({
     }
   }
 });
-
 
 export {handler as GET, handler as POST}
