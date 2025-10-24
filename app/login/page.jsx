@@ -1,6 +1,4 @@
 "use client";
-import Link from "next/link";
-import NewRoute from "../dashboard/page";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -28,7 +26,12 @@ export default function Login() {
     if (result?.ok) {
       console.log("Login Successful");
       setLoading(false);
-    router.push("/dashboard");
+
+      localStorage.setItem("Name", "");
+      localStorage.setItem("Username", username);
+      localStorage.setItem("Password", password);
+
+      router.push("/dashboard");
     } else {
       console.log("Invalid credentials");
       setLoading(false);
