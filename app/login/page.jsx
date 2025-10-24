@@ -12,7 +12,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -31,6 +31,7 @@ export default function Login() {
     router.push("/dashboard");
     } else {
       console.log("Invalid credentials");
+      setLoading(false);
     }
   };
 
